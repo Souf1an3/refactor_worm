@@ -6,8 +6,9 @@ def clear_screen():
     os.system('clear' if os.name != 'nt' else 'cls')
 
 
-def move_snake(wait_time, phase, space_before, space_after):
+def move_snake(wait_time, phase, next_step):
     clear_screen()
+    space_before, space_after = next_step
     if phase == 1:
         print(space_before, end='')
         print(r"____/\____/\____:)", end='')
@@ -30,12 +31,12 @@ def main(STEP):
     moving = range(STEP)
     snake_step = practice_yield(STEP)
     for i in moving:
-        space_before, space_after = next(snake_step)
-        move_snake(0.3, PHASE_1, space_before, space_after)
+        next_step = next(snake_step)
+        move_snake(0.3, PHASE_1, next_step)
         if moving.stop != STEP:
-            move_snake(0.5, PHASE_2, space_before, space_after)
+            move_snake(0.5, PHASE_2, next_step)
         else:
-            move_snake(0, PHASE_3, space_before, space_after)
+            move_snake(0, PHASE_3, next_step)
 
 
 def practice_yield(STEP):
